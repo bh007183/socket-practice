@@ -4,14 +4,20 @@
   left: 50%;
   transform: translate(-50%, -50%);
   /*  */
-  height: 40%;
-  width: 40%;
+  height: 60vh;
+  width: 40vw;
     background-color: blueviolet;
     border-radius: 10px;
     
 }
 .createSubmit{
     position: absolute;
-    bottom: 5px;
+    bottom: 20px;
     width: 100%
+}
+
+@media only screen and (max-width: 600px){
+    .EntryForm{
+        width: 70vw;
+    }
 }

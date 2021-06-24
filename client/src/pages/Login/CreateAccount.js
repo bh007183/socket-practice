@@ -7,20 +7,20 @@ export default function CreateAccount() {
         <div>
             <form className="EntryForm">
                 <div className="centerFlex">
-                    <input placeholder="User Name"></input>
+                    <input placeholder="User Name" style={{marginTop: "25px"}}></input>
                 </div>
                 <div className="centerFlex ">
-                    <input type="password" placeholder="Email"></input>
+                    <input type="password" style={{marginTop: "5vh"}} placeholder="Email"></input>
                 </div>
                 <div className="centerFlex ">
-                    <input type="password" placeholder="Password"></input>
+                    <input type="password" style={{marginTop: "5vh"}} placeholder="Password"></input>
                 </div>
                 <div className="centerFlex ">
-                    <input type="password" placeholder="Verify Password"></input>
+                    <input type="password" style={{marginTop: "5vh"}} placeholder="Verify Password"></input>
                 </div>
                 <div className="spaceBetween createSubmit">
-                <Link to="/">Back</Link>
-                    <button>Submit</button>
+                <Link to="/" style={{marginLeft: "20px"}} >Back</Link>
+                    <button style={{marginRight: "20px"}}>Submit</button>
                 </div>
             </form>
         </div>
