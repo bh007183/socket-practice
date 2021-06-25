@@ -17,6 +17,8 @@ if(process.env.NODE_ENV === "production"){
 }
 const messageRoute = require("./routes/message-routes")
 app.use(messageRoute)
+const standardRoute = require("./routes/standard-routes")
+app.use(standardRoute)
 
 
 

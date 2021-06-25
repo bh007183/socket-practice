@@ -8,14 +8,18 @@ export const slice = createSlice({
         UserName: "",
         message: "",
         success: "",
-        error: ""
+        error: "",
+        
     },
     reducers: {
         doStuff: (User, action) => {
 
         },
         setSuccess: (User, action) => {
-            User.success = action.payload
+            
+                User.success = action.payload
+            
+            
         },
         setError: (User, action) => {
             User.error = action.payload.data
@@ -32,10 +36,19 @@ export const {doStuff, setSuccess, setError, clearMessage} = slice.actions
 export default slice.reducer
 
 export const createUser = (data) => apiCallBegan({
-    url: "http://localhost:8080/api/createUser",
+    url: "http://localhost:8090/api/createUser",
     data: data,
     method: "POST",
-    OnSuccess: setSuccess.type,
-    OnError: setError.type
+    onSuccess: window.location.href = "/",
+    onError: setError.type
+    
+})
+
+export const userLogin = (data) => apiCallBegan({
+    url: "http://localhost:8090/api/createUser",
+    data: data,
+    method: "POST",
+    onSuccess: window.location.href = "/",
+    onError: setError.type
     
 })
