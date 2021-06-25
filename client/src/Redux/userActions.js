@@ -5,33 +5,39 @@ export const slice = createSlice({
 
     name: "User",
     initialState: {
-        UserName: "",
+        username: "",
         message: "",
         success: "",
         error: "",
         
+        
     },
     reducers: {
-        doStuff: (User, action) => {
-
-        },
+        
         setSuccess: (User, action) => {
-            
-                User.success = action.payload
-            
-            
+            User.success = action.payload  
         },
         setError: (User, action) => {
             User.error = action.payload.data
         },
-        clearMessage: (User, action) => {
+        clearBoth: (User, action) => {
             User.success = "";
             User.error = ""
+        },
+        clearSuccess: (User, action) => {
+            User.success = "";
+        },
+        loginSuccess: (User, action) => {
+            localStorage.setItem("Token", action.payload.token)
+            User.username = action.payload.username
+            User.success = true
+            
         }
+
     }
 
 })
-export const {doStuff, setSuccess, setError, clearMessage} = slice.actions
+export const {doStuff, setSuccess, setError, clearMessage, loginSuccess, clearSuccess} = slice.actions
 
 export default slice.reducer
 
@@ -45,10 +51,10 @@ export const createUser = (data) => apiCallBegan({
 })
 
 export const userLogin = (data) => apiCallBegan({
-    url: "http://localhost:8090/api/createUser",
+    url: "http://localhost:8090/login",
     data: data,
     method: "POST",
-    onSuccess: window.location.href = "/",
+    onSuccess: loginSuccess.type,
     onError: setError.type
     
 })

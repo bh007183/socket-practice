@@ -8,7 +8,7 @@ import Alerts from "../../components/Alert"
 
 export default function CreateAccount() {
     const dispatch = useDispatch()
-    const success = useSelector(state => state.Store.User.success)
+    
     const error = useSelector(state => state.Store.User.error)
 
     const [create, setCreate] = useState({
@@ -41,7 +41,7 @@ export default function CreateAccount() {
 
     return (
         <div>
-            {success ? <Alerts success={success} alert={success} /> : error ? <Alerts error={error} alert={error}/> : <></>}
+            {error ? <Alerts error={error} alert={error}/> : <></>}
             <form onSubmit={handleSubmit} className="EntryForm">
                 <div className="centerFlex">
                     <input onChange={handleChange} name="username" value={create.username} placeholder="User Name" style={{marginTop: "25px"}}></input>

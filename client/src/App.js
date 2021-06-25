@@ -8,6 +8,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Dashboard from "./pages/Dashboard"
 
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
         <Route exact path="/createaccount">
           <CreateAccount/>
         </Route>
-
+        <Route exact path="/theDash">
+          <Dashboard/>
+        </Route>
       </Switch>
     </Router>
    
