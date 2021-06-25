@@ -1,0 +1,19 @@
+#DashContain{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+#roomContain{
+    grid-column: 1/4;
+    height: 100vh;
+    background-color: rgb(83, 78, 70);
+}
+#messages{
+    grid-column: 4/12;
+    width: 100vw;
+    background-color: rgb(70, 48, 48);
+}
+#bar{
+    grid-column: 1/13;
+    height: 60px;
+    background-color: rgb(48, 69, 70);
+}
