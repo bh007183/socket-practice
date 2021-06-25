@@ -35,5 +35,6 @@ app.get("*", (req,res) => {
 })
 
 app.listen(PORT, ()=>{
-    console.log(`http//localhost:${PORT}`)
+    console.log(`http://localhost:${PORT}`)
+    
 })

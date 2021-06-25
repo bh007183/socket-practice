@@ -13,9 +13,6 @@ const userSchema = new Schema({
         type: String,
         unique: true
     },
-    rooms: {
-        type: Array
-    },
     friends: [
         {
             type: Schema.Types.ObjectId,

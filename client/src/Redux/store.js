@@ -1,8 +1,8 @@
 import {combineReducers} from "redux"
-import userReducer from "./userActions"
+import reducer from "./reducer"
 
 export default combineReducers({
     
-        User: userReducer
+        Store: reducer
     
 })
