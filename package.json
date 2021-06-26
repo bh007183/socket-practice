@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/bh007183/socket-practice#readme",
   "dependencies": {
+    "@material-ui/icons": "^4.11.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

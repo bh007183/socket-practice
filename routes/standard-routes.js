@@ -25,7 +25,7 @@ router.post("/api/createUser", async (req, res ) => {
 })
 
 router.post("/login", async (req, res ) => {
-console.log(req.body)
+
     
     try{
         let user = await db.User.findOne({
@@ -45,14 +45,6 @@ console.log(req.body)
                         res.status(200).json({token: token, username: user.username})
                     }
                 })
-
-
-
-
-
-
-
-
             }
         }else{
             res.status(404).send("Invalid password or username.")
@@ -62,6 +54,59 @@ console.log(req.body)
     }catch(err){
         console.log(err)
         res.status(500).send("Failed to create user! line 28")
+
+    }
+})
+router.get("/api/find/user/:username", async (req, res ) => {
+  
+    console.log(req.params.username)
+    try{
+        if(req.params.username !== "empty"){
+            let user = await db.User.find({
+            
+                username: { $regex: ".*" + req.params.username + ".*"},
+            }, {password: 0, email: 0, friends: 0, rooms: 0}
+            )
+            
+            if(user.length){
+                res.status(200).json(user)
+            }else{
+                res.status(200).send([{username: "No Valid Matches."}])
+            }
+
+        }else{
+            res.status(200).send([{username: "No searched items."}])
+        }
+        
+        
+
+    }catch(err){
+        console.log(err)
+        res.status(500).send("Failed to create user! line 28")
+
+    }
+})
+
+router.post("/api/connectionRequest", async (req, res ) => {
+    let token = false
+    if(!req.headers){
+        token = false
+    }else if (!req.headers.authorization){
+        token = false
+    }else{
+        token = req.headers.authorization.split(" ")[1]
+    }
+    if(!token){
+        res.status(404).send("Please ign in to create friend request.")
+    }else{
+
+        jws.verify(token, process.env.JWS_SEOL, (err, data) => {
+            if(err){
+                res.status(404).send("Session expired, please login.")
+            }else{
+                console.log(data)
+            }
+        })
 
     }
 })

@@ -9,6 +9,7 @@ export const slice = createSlice({
         message: "",
         success: "",
         error: "",
+        searchResults: []
         
         
     },
@@ -32,12 +33,15 @@ export const slice = createSlice({
             User.username = action.payload.username
             User.success = true
             
+        },
+        setSearchResults: (User, action) => {
+            User.searchResults = action.payload
         }
 
     }
 
 })
-export const {doStuff, setSuccess, setError, clearMessage, loginSuccess, clearSuccess} = slice.actions
+export const {doStuff, setSuccess, setError, clearMessage, loginSuccess, clearSuccess, setSearchResults} = slice.actions
 
 export default slice.reducer
 
@@ -56,5 +60,18 @@ export const userLogin = (data) => apiCallBegan({
     method: "POST",
     onSuccess: loginSuccess.type,
     onError: setError.type
-    
+})
+export const searchUser = (data) => apiCallBegan({
+    url: `http://localhost:8090/api/find/user/${data}`,
+    method: "GET",
+    onSuccess: setSearchResults.type,
+    onError: setError.type
+})
+export const connectionRequest = (data) => apiCallBegan({
+    url: `http://localhost:8090/api/connectionRequest`,
+    headers: {authorization: "Bearer: " + localStorage.getItem("Token")},
+    method: "POST",
+    data: data,
+    onSuccess: setSuccess.type,
+    onError: setError.type
 })

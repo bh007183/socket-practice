@@ -13,6 +13,9 @@ const userSchema = new Schema({
         type: String,
         unique: true
     },
+    connectionRequests: {
+        type: Array,
+    },
     friends: [
         {
             type: Schema.Types.ObjectId,

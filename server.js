@@ -33,9 +33,9 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/livechat",{
 
 
 
-app.get("*", (req,res) => {
-    res.sendFile(path.join(__dirname, "/client/build/index.html"))
-})
+// app.get("*", (req,res) => {
+//     res.sendFile(path.join(__dirname, "/client/build/index.html"))
+// })
 
 app.listen(PORT, ()=>{
     console.log(`http://localhost:${PORT}`)

@@ -1,12 +1,12 @@
 import React from 'react'
 import "./style.css"
+import Bar from "../../components/bar"
 
 export default function Dashboard() {
     return (
         <div id="DashContain">
-            <div id="bar">
-
-            </div>
+            <Bar/>
+            
             <div id="roomContain">
 
             </div>
