@@ -35,10 +35,10 @@ router.post("/login", async (req, res ) => {
             let compare = bcrypt.compareSync(req.body.password, user.password)
             if(compare){
 
-                jws.sign({data: {
+                jws.sign({
                     username: user.username,
                     _id: user._id
-                }}, process.env.JWS_SEOL, {expiresIn: "60"}, (err, token)=>{
+                }, process.env.JWS_SEOL, {expiresIn: "1h"}, (err, token)=>{
                     if(err){
                         res.status(500).send("Network Error")
                     }else{
@@ -97,14 +97,23 @@ router.post("/api/connectionRequest", async (req, res ) => {
         token = req.headers.authorization.split(" ")[1]
     }
     if(!token){
-        res.status(404).send("Please ign in to create friend request.")
+        res.status(404).send("Please login to create friend request.")
     }else{
 
         jws.verify(token, process.env.JWS_SEOL, (err, data) => {
             if(err){
                 res.status(404).send("Session expired, please login.")
             }else{
-                console.log(data)
+                console.log(data._id)
+                db.User.findByIdAndUpdate({_id: req.body._id}, {
+                    $push: {connectionRequests: {username: data.username, _id: data._id}} 
+                }, (err, data)=>{
+                    if(err){
+                        res.status(404).send("Issue with creating connection. Please try again.")
+                    }else{
+                        res.status(200).send("Connection request sent!")
+                    }
+                })
             }
         })
 

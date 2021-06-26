@@ -14,9 +14,7 @@ export default function Bar() {
     const [search, setSearch] = useState({
         username: ""
     })
-    const [request, setRequest] = useState({
-        _id: ""
-    })
+    
     const [open, setOpen] = React.useState(false);
   
     const handleOpen = () => {
@@ -35,14 +33,14 @@ export default function Bar() {
     }
     
 
-        const connectionRequest = (event) => {
+    const initiateConnection = (event) => {
             
-            console.log(event.target.value)
+            console.log(event.currentTarget)
             dispatch(connectionRequest({_id: event.target.value}))
             
             
     
-        }
+    }
         
     
    
@@ -68,7 +66,7 @@ export default function Bar() {
 
             </div>
             {searchResults.map((obj, index) => (
-                <button type="button" onClick={connectionRequest} key={index} value={obj._id} id="selectButton" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <button type="button" onClick={initiateConnection} key={index} value={obj._id} id="selectButton" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 {obj.username}
             </button>
 
