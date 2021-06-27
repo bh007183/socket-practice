@@ -9,7 +9,8 @@ export const slice = createSlice({
         message: "",
         success: "",
         error: "",
-        searchResults: []
+        searchResults: [],
+        Friends: []
         
         
     },
@@ -36,17 +37,20 @@ export const slice = createSlice({
         },
         setSearchResults: (User, action) => {
             User.searchResults = action.payload
+        },
+        setFriends: (User, action) => {
+            User.Friends = action.payload
         }
 
     }
 
 })
-export const {doStuff, setSuccess, setError, clearMessage, loginSuccess, clearSuccess, setSearchResults} = slice.actions
+export const {doStuff, setSuccess, setError, clearMessage, loginSuccess, clearSuccess, setSearchResults, setFriends} = slice.actions
 
 export default slice.reducer
 
 export const createUser = (data) => apiCallBegan({
-    url: "http://localhost:8090/api/createUser",
+    url: "http://localhost:8080/api/createUser",
     data: data,
     method: "POST",
     onSuccess: window.location.href = "/",
@@ -55,23 +59,29 @@ export const createUser = (data) => apiCallBegan({
 })
 
 export const userLogin = (data) => apiCallBegan({
-    url: "http://localhost:8090/login",
+    url: "http://localhost:8080/login",
     data: data,
     method: "POST",
     onSuccess: loginSuccess.type,
     onError: setError.type
 })
 export const searchUser = (data) => apiCallBegan({
-    url: `http://localhost:8090/api/find/user/${data}`,
+    url: `http://localhost:8080/api/find/user/${data}`,
     method: "GET",
     onSuccess: setSearchResults.type,
     onError: setError.type
 })
 export const connectionRequest = (data) => apiCallBegan({
-    url: `http://localhost:8090/api/connectionRequest`,
+    url: `http://localhost:8080/api/connectionRequest`,
     headers: {authorization: "Bearer: " + localStorage.getItem("Token")},
     method: "POST",
     data: data,
     onSuccess: setSuccess.type,
+    onError: setError.type
+})
+export const getFriends = () => apiCallBegan({
+    url: `http://localhost:8080/api/getfriends`,
+    headers: {authorization: "Bearer: " + localStorage.getItem("Token")},
+    onSuccess: setFriends.type,
     onError: setError.type
 })

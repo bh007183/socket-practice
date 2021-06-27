@@ -107,7 +107,7 @@ router.post("/api/connectionRequest", async (req, res ) => {
                 console.log(data._id)
                 // this is pending request to be friends. Temp consoled out to allow for ease
                 // db.User.findByIdAndUpdate({_id: req.body._id}, {
-                //     $push: {connectionRequests: {username: data.username, _id: data._id}} 
+                //     $addToSet: {connectionRequests: {username: data.username, _id: data._id}} 
                 // }, (err, data)=>{
                 //     if(err){
                 //         res.status(404).send("Issue with creating connection. Please try again.")
@@ -119,17 +119,18 @@ router.post("/api/connectionRequest", async (req, res ) => {
                 // Temporary set up for adding frineds to be removed and use above option
 
                 db.User.findByIdAndUpdate({_id: data._id}, {
-                    $push: {friends: { _id: req.body._id}}
+                    $addToSet: {friends: { _id: req.body._id}}
                 }, (err, data)=>{
                     if(err){
                         res.status(404).send("Issue with creating connection. Please try again.")
                     }else{
                         db.User.findByIdAndUpdate({_id: req.body._id}, {
-                            $push: {friends: { _id: data._id}}
+                            $addToSet: {friends: { _id: data._id}}
                         }, (err, data)=>{
                             if(err){
                                 res.status(404).send("Issue with creating connection. Please try again.")
                             }else{
+                                console.log(data)
                                 res.status(200).send("Connection request sent!")
                             }
                         })
@@ -138,6 +139,36 @@ router.post("/api/connectionRequest", async (req, res ) => {
             }
         })
 
+    }
+})
+
+router.get("/api/getfriends", async (req, res ) => {
+    let token = false
+    if(!req.headers){
+        token = false
+    }else if(!req.headers.authorization){
+        token = false
+    }else{
+        token = req.headers.authorization.split(" ")[1]
+    }
+    if(!token){
+        res.status(500).send("Something went wrong! Please login again.")
+    }else{
+        jws.verify(token, process.env.JWS_SEOL, (err, data)=>{
+            if(err){
+
+                console.log(err)
+                res.status(404).send("Session Expired!")
+            }else{
+                db.User.findById(data._id, {password: 0, email: 0}).populate("friends", '-password -friends -rooms -connectionRequests')
+                .then(data => res.status(200).json(data.friends))
+                .catch(err => console.log(err))
+
+
+
+
+            }
+        })
     }
 })
 

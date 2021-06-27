@@ -5,6 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from "@material-ui/core/Button"
 import {searchUser, connectionRequest} from "../Redux/userActions"
 import {useSelector, useDispatch} from "react-redux"
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 export default function Bar() {
     const dispatch = useDispatch()
@@ -48,8 +49,8 @@ export default function Bar() {
 
   return (
     <div id="bar">
-      <button type="button" onClick={handleOpen}>
-        Find Friend
+      <button id="addConnection" type="button" onClick={handleOpen}>
+        AddConnection
       </button>
       <Modal
         open={open}

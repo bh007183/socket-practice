@@ -17,3 +17,50 @@
     height: 60px;
     margin-top: 5px;
 }
+#bar{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+}
+#addConnection{
+    grid-column: 12
+}
+#createRoomButton{
+    background-color: rgb(95, 67, 48);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* check repeat */
+
+#friendSearchBar{
+    /* display: flex;
+    justify-content: center;
+    overflow-y: scroll; */
+}
+/* check repeat */
+#friendSearchBlock{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+
+}
+
+.friendSelectButton{
+    width: 100%;
+    background-color: chartreuse;
+    height: 60px;
+    margin-top: 5px;
+
+}
+#added{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px
+}
