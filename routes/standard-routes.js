@@ -105,13 +105,34 @@ router.post("/api/connectionRequest", async (req, res ) => {
                 res.status(404).send("Session expired, please login.")
             }else{
                 console.log(data._id)
-                db.User.findByIdAndUpdate({_id: req.body._id}, {
-                    $push: {connectionRequests: {username: data.username, _id: data._id}} 
+                // this is pending request to be friends. Temp consoled out to allow for ease
+                // db.User.findByIdAndUpdate({_id: req.body._id}, {
+                //     $push: {connectionRequests: {username: data.username, _id: data._id}} 
+                // }, (err, data)=>{
+                //     if(err){
+                //         res.status(404).send("Issue with creating connection. Please try again.")
+                //     }else{
+                //         res.status(200).send("Connection request sent!")
+                //     }
+                // })
+
+                // Temporary set up for adding frineds to be removed and use above option
+
+                db.User.findByIdAndUpdate({_id: data._id}, {
+                    $push: {friends: { _id: req.body._id}}
                 }, (err, data)=>{
                     if(err){
                         res.status(404).send("Issue with creating connection. Please try again.")
                     }else{
-                        res.status(200).send("Connection request sent!")
+                        db.User.findByIdAndUpdate({_id: req.body._id}, {
+                            $push: {friends: { _id: data._id}}
+                        }, (err, data)=>{
+                            if(err){
+                                res.status(404).send("Issue with creating connection. Please try again.")
+                            }else{
+                                res.status(200).send("Connection request sent!")
+                            }
+                        })
                     }
                 })
             }
